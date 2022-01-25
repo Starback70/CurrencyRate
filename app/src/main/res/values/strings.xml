@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Курсы валют</string>
+    <string name="convert">Конвертировать</string>
+    <string name="update">Обновить курсы валют</string>
+    <string name="hint_changeCurrency">Выберите валюту</string>
+    <string name="hint_result">Результат</string>
+    <string name="hint_numberRub">Введите сумму</string>
+</resources>
