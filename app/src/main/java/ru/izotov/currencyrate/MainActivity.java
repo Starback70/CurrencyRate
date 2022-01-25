@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             if(convertResult.equals("")) {
                 Toast.makeText(getApplicationContext(), "Введите сумму для конвертации", Toast.LENGTH_SHORT).show();
             } else {
-                convertResultTextView.setText(convertResult);
+                convertResultTextView.setText(convertResult + " рублей");
             }
         }
 
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             String sumString = sumEditText.getText().toString();
             if(sumString.length() > 0) {
                 double sum = Double.parseDouble(sumString);
-                convertResult = String.valueOf(sum * currencyRate);
+                convertResult = new DecimalFormat("#0.00").format(sum * currencyRate);
             } else {
                 convertResult = "";
             }
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             if(isUpdate) {
                 Toast.makeText(getApplicationContext(), "Курсы валют обновлены", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Курсы валют загруены из файла", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Курсы валют загружены из файла", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -196,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                 if(jsonString != null) {
                     fos.write(jsonString.getBytes());
                 }
-                fos.close();
                 return true;
             } catch (IOException fileNotFound) {
                 return false;
@@ -223,9 +223,12 @@ public class MainActivity extends AppCompatActivity {
             int count = 0;
             for(Map.Entry<String, Currency> entry : currencyMap.entrySet()) {
                 sb
-                        .append(++count + ") ")
+                        .append(++count)
+                        .append(")  ")
+                        .append(entry.getValue().getCharCode())
+                        .append("  ")
                         .append(entry.getValue().getName())
-                        .append(" ")
+                        .append("  ")
                         .append(entry.getValue().getValue())
                         .append("\n");
             }
